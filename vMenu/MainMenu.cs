@@ -41,6 +41,7 @@ namespace vMenuClient
         public static PersonalVehicle PersonalVehicleMenu { get; private set; }
         public static VehicleOptions VehicleOptionsMenu { get; private set; }
         public static VehicleSpawner VehicleSpawnerMenu { get; private set; }
+        public static LEOVehicles LEOVehiclesMenu { get; private set; }
         public static PlayerAppearance PlayerAppearanceMenu { get; private set; }
         public static MpPedCustomization MpPedCustomizationMenu { get; private set; }
         public static TimeOptions TimeOptionsMenu { get; private set; }
@@ -728,6 +729,20 @@ namespace vMenuClient
                     Label = "→→→"
                 };
                 AddMenu(VehicleSubmenu, menu, button);
+            }
+
+            // Add the LEO Vehicles menu (own top-level page).
+            if (IsAllowed(Permission.VSMenu))
+            {
+                LEOVehiclesMenu = new LEOVehicles();
+                var leoMenu = LEOVehiclesMenu.GetMenu();
+                var leoButton = new MenuItem("Emgergency Vehicles", "Spawn emgergency vehicles, organized by department.")
+                {
+                    Label = "→→→"
+                };
+                Menu.AddMenuItem(leoButton);
+                MenuController.AddSubmenu(Menu, leoMenu);
+                MenuController.BindMenuItem(Menu, leoMenu, leoButton);
             }
 
             // Add Saved Vehicles menu.
