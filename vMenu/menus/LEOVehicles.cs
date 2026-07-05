@@ -48,7 +48,7 @@ namespace vMenuClient.menus
         ///   ]
         /// }
         /// </summary>
-        private static Dictionary<string, List<LeoVehicleEntry>> LoadDepartments()
+        public static Dictionary<string, List<LeoVehicleEntry>> LoadDepartments()
         {
             try
             {
