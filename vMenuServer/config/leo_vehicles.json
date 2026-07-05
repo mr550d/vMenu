@@ -1,0 +1,28 @@
+{
+  "LSPD - Los Santos Police": [
+    { "Name": "Police Cruiser (Interceptor)", "Model": "police" },
+    { "Name": "Police Cruiser (Buffalo)", "Model": "police2" },
+    { "Name": "Police Cruiser (Stanier)", "Model": "police3" },
+    { "Name": "Police Cruiser (Vapid)", "Model": "police4" },
+    { "Name": "Police Bike", "Model": "policeb" },
+    { "Name": "Police Riot Van", "Model": "riot" },
+    { "Name": "Police Prison Bus", "Model": "pbus" }
+  ],
+
+  "BCSO - Blaine County Sheriff": [
+    { "Name": "Sheriff Cruiser", "Model": "sheriff" },
+    { "Name": "Sheriff SUV", "Model": "sheriff2" },
+    { "Name": "Park Ranger", "Model": "pranger" },
+    { "Name": "Riot Van", "Model": "riot2" }
+  ],
+
+  "SAHP - Highway Patrol": [
+    { "Name": "Highway Patrol Cruiser", "Model": "policeold1" },
+    { "Name": "Highway Patrol SUV", "Model": "policeold2" }
+  ],
+
+  "FIB": [
+    { "Name": "FIB Sedan", "Model": "fbi" },
+    { "Name": "FIB SUV (Granger)", "Model": "fbi2" }
+  ]
+}
