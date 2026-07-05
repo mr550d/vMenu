@@ -10,6 +10,8 @@ vMenu is a server-side menu for FiveM servers, including full\* permission suppo
 
 ## Download
 
+
+
 Click [here](https://github.com/TomGrobbe/vMenu/releases) to go to the releases page and download it.
 
 ---
