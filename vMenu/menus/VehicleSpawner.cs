@@ -169,6 +169,80 @@ namespace vMenuClient.menus
             }
             #endregion
 
+            #region LEO vehicles menu
+            // Adds law enforcement department categories directly into the
+            // Vehicle Spawner menu, loaded from config/leo_vehicles.json.
+            if (IsAllowed(Permission.VSMenu))
+            {
+                var leoDepartments = LEOVehicles.LoadDepartments();
+
+                if (leoDepartments.Count > 0)
+                {
+                    var leoHeader = new MenuItem("---- Law Enforcement Vehicles ----")
+                    {
+                        Enabled = false,
+                    };
+                    menu.AddMenuItem(leoHeader);
+
+                    foreach (var department in leoDepartments)
+                    {
+                        var deptName = department.Key;
+                        var vehicles = department.Value ?? new List<LEOVehicles.LeoVehicleEntry>();
+
+                        var deptMenu = new Menu(Game.Player.Name, deptName);
+                        var deptBtn = new MenuItem(deptName, $"Vehicles available to {deptName}.") { Label = "→→→" };
+
+                        menu.AddMenuItem(deptBtn);
+                        MenuController.AddSubmenu(menu, deptMenu);
+                        MenuController.BindMenuItem(menu, deptMenu, deptBtn);
+
+                        foreach (var entry in vehicles)
+                        {
+                            if (string.IsNullOrWhiteSpace(entry?.Model))
+                            {
+                                continue;
+                            }
+
+                            var displayName = string.IsNullOrWhiteSpace(entry.Name) ? entry.Model : entry.Name;
+                            var model = entry.Model;
+                            var exists = DoesModelExist(model);
+
+                            var vehBtn = new MenuItem(displayName, exists
+                                ? $"Click to spawn a {displayName}."
+                                : "This vehicle model could not be found. Make sure it's a valid model name or that the addon is being streamed by the server.")
+                            {
+                                Label = $"({model})",
+                                ItemData = model,
+                                Enabled = exists,
+                            };
+
+                            if (!exists)
+                            {
+                                vehBtn.LeftIcon = MenuItem.Icon.LOCK;
+                            }
+
+                            deptMenu.AddMenuItem(vehBtn);
+                        }
+
+                        deptMenu.OnItemSelect += async (sender, item, index) =>
+                        {
+                            if (item.ItemData is string modelName)
+                            {
+                                await SpawnVehicle(modelName, SpawnInVehicle, ReplaceVehicle);
+                            }
+                        };
+
+                        if (deptMenu.Size == 0)
+                        {
+                            deptBtn.Enabled = false;
+                            deptBtn.LeftIcon = MenuItem.Icon.LOCK;
+                            deptBtn.Description = "There are no vehicles configured for this department.";
+                        }
+                    }
+                }
+            }
+            #endregion
+
             // These are the max speed, acceleration, braking and traction values per vehicle class.
             var speedValues = new float[23]
             {
